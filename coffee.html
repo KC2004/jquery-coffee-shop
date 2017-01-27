@@ -43,22 +43,43 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery.js"></script>
 <script>
     "use strict";
 
-    var myImage = document.getElementById("coffee_image");
-    var myRevenueMessage = document.getElementById("revenue");
 
-    myImage.setAttribute("src", "static/coffee_beans.jpg");
+    var myImage = $("img#coffee_image");
+    var myRevenueMessage = $("#revenue");
+    var espresso = $("button#espresso");
+    var latte = $("button#latte");
+    var hotChocolate = $("button#hot-chocolate");
+    var prices = { 'espresso': 3.25, 'latte': 4.15, 'hot-chocolate': 2.50 };
+    var drinksOrdered = [];
 
-    myImage.addEventListener("click", makeCoffee);
+    myImage.attr("src", "static/coffee_beans.jpg");
+    
+    var revenue = 0;
+    function makeCoffee(drinkType) {
+        // Calculating revenue and update page with total.
+        revenue += prices[drinkType];
+        myRevenueMessage.html(revenue);
 
-    function makeCoffee() {
-         myImage.src = "static/coffee_machine.jpg";
-         setTimeout(function() { myImage.setAttribute("src", "static/coffee_mug.jpg"); }, 1500);
-         setTimeout(function() { myImage.setAttribute("src", "static/coffee_beans.jpg"); }, 4000);
+        // add new drink to drinkordered
+        drinksOrdered.push(drinkType);
+
+        // change image
+        myImage.attr("src", "static/coffee_machine.jpg");
+        setTimeout(function() { myImage.attr("src", "static/coffee_mug.jpg"); }, 1500);
+        setTimeout(function() { myImage.attr("src", "static/coffee_beans.jpg"); }, 4000);
+
     }
-
+    
+    myImage.on("click", function(evt) { return makeCoffee("brew");});
+    espresso.on("click", function(evt) { return makeCoffee("espresso");});
+    latte.on("click", function(evt) { return makeCoffee("latte");});
+    hotChocolate.on("click", function(evt) { return makeCoffee("hot-chocolate");});
+  
+      
 </script>
 
 </body>

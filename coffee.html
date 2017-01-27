@@ -62,7 +62,7 @@
     function makeCoffee(drinkType) {
         // Calculating revenue and update page with total.
         revenue += prices[drinkType];
-        myRevenueMessage.html(revenue);
+        myRevenueMessage.html("$" + revenue.toFixed(2));
 
         // add new drink to drinkordered
         drinksOrdered.push(drinkType);
